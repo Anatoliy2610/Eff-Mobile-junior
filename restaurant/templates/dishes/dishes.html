@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="container wrapper flex-grow-1">
+ 
+  <h1 class="my-4">{{ title }}</h1> 
+  <a class="btn btn-primary mb-3" href="{% url 'dishes_create' %}">Создать блюдо</a>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Название блюда</th>
+        <th>Цена блюда / руб</th>
+        <th>Дата создания</th>
+        <th></th>
+      </tr>
+    </thead>
+  <tbody>
+
+    {% for dish in dishes %}
+    <tr>
+      <td>{{ dish.pk }}</td>
+      <td>{{ dish.name }}</td>
+      <td>{{ dish.price }}</td>
+      <td>{{ dish.time_create|date:"d.m.Y H:i" }}</td>
+      <td>
+        <a href="{% url 'dishes_update' dish.pk %}">Изменить</a>
+        <br>
+        <a href="{% url 'dishes_delete' dish.pk %}">Удалить</a>
+
+      </td>
+    </tr>
+  {% endfor %}
+
+  </tbody>
+  </table>
+
+</div>
+
+
+{% endblock %}
+
+

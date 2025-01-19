@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="container wrapper flex-grow-1">
+ 
+  <h1 class="my-4">{{ title }}</h1> 
+  <a class="btn btn-primary mb-3" href="{% url 'table_create' %}">Создать стол</a>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Номер стола</th>
+        <th></th>
+      </tr>
+    </thead>
+  <tbody>
+
+    {% for table in tables %}
+    <tr>
+      <td>{{ table.pk }}</td>
+      <td>{{ table.table_number }}</td>
+      <td>
+        <a href="{% url 'table_update' table.pk %}">Изменить</a>
+        <br>
+        <a href="{% url 'table_delete' table.pk %}">Удалить</a>
+
+      </td>
+    </tr>
+  {% endfor %}
+
+  </tbody>
+  </table>
+
+</div>
+
+
+{% endblock %}
+
+

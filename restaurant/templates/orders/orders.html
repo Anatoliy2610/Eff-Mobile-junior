@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="container wrapper flex-grow-1">
+
+  <h1 class="my-4">{{ title }}</h1>
+        
+  <a class="btn btn-primary mb-3" href="{% url 'orders_create' %}" role="button">Создать заказ</a>
+  
+
+<div class="card mb-3 my-4">
+  <div class="card-body bg-light">
+    <form class="form-inline center" method="get">
+        {{ filter.form.as_p }}
+        <input type="submit" class='btn btn-primary mb-3' value='{{ button_text }}'>
+        </form>
+  </div>
+</div>
+
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Номер столика</th>
+        <th>Блюда</th>
+        <th>Стоимость заказа</th>
+        <th>Статус заказа</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in orders %}
+        <tr>
+          <td>{{ order.id }}</td>
+          <td>{{ order.table_number }}</td>
+
+          <td> 
+            {% for item in order.items.all %}
+<p>{{ item }}</p>
+            {% endfor %}
+          </td>
+
+          <td>
+            {{ order.total_price }} рублей
+
+          </td>
+          <td>{{ order.status }}</td>
+
+          <td>
+            <a href="{% url 'orders_update' order.id %}">Изменить</a>
+            <br>
+            <a href="{% url 'orders_delete' order.id %}">Удалить</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
+      </div>
+
+{% endblock %}
